@@ -116,7 +116,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (Distance < holdCheckInputEndDistance)
             {
-                ViewObject.DestroyEffectObj();
+                ViewObject?.DestroyEffectObj();
                 DestroySelf();
 
                 NoteJudger.HoldTailJudge(Data,holdLength,1);

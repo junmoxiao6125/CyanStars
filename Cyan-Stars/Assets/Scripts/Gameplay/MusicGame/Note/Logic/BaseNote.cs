@@ -158,7 +158,7 @@ namespace CyanStars.Gameplay.MusicGame
         protected void DestroySelf(bool autoMove = true)
         {
             layer.RemoveNote(this);
-            ViewObject.DestroySelf(autoMove);
+            ViewObject?.DestroySelf(autoMove);
             ViewObject = null;
         }
     }

@@ -21,7 +21,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (isHit && Distance <= 0) //接住并过线
             {
-                ViewObject.CreateEffectObj(NoteData.NoteWidth); //生成特效
+                ViewObject?.CreateEffectObj(NoteData.NoteWidth); //生成特效
                 DestroySelf(false); //立即销毁
                 return;
             }
@@ -42,7 +42,7 @@ namespace CyanStars.Gameplay.MusicGame
             {
                 isHit = true;
 
-                ViewObject.CreateEffectObj(NoteData.NoteWidth); //生成特效
+                ViewObject?.CreateEffectObj(NoteData.NoteWidth); //生成特效
                 DestroySelf(false); //立即销毁
 
                 NoteJudger.DragJudge(Data,false);
@@ -64,7 +64,7 @@ namespace CyanStars.Gameplay.MusicGame
             else
             {
                 //晚按即刻放
-                ViewObject.CreateEffectObj(NoteData.NoteWidth); //生成特效
+                ViewObject?.CreateEffectObj(NoteData.NoteWidth); //生成特效
                 DestroySelf(false);
             }
 

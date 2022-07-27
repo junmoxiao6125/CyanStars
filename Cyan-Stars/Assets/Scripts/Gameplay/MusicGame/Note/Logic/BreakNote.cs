@@ -36,7 +36,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (EvaluateHelper.GetTapEvaluate(Distance) == EvaluateType.Exact)
             {
-                ViewObject.CreateEffectObj(NoteData.NoteWidth); //生成特效
+                ViewObject?.CreateEffectObj(NoteData.NoteWidth); //生成特效
                 DestroySelf(false); //销毁
 
                 NoteJudger.BreakJudge(Data, 0); // Auto Mode 杂率为0
@@ -49,7 +49,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (inputType != InputType.Down) return;
 
-            ViewObject.CreateEffectObj(0); //生成特效
+            ViewObject?.CreateEffectObj(0); //生成特效
             DestroySelf(false); //销毁
 
             NoteJudger.BreakJudge(Data,Distance);

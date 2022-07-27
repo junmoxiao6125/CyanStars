@@ -35,7 +35,7 @@ namespace CyanStars.Gameplay.MusicGame
                 else
                 {
                     //头判成功过且超时未抬起 结算尾判
-                    ViewObject.CreateEffectObj(NoteData.NoteWidth);
+                    ViewObject?.CreateEffectObj(NoteData.NoteWidth);
                     DestroySelf(false);
 
                     float timeLength = curLogicTime - downTimePoint;
@@ -57,7 +57,7 @@ namespace CyanStars.Gameplay.MusicGame
                 DataModule.MaxScore += 2;
                 LoggerManager.GetOrCreateLogger<NoteLogger>().Log(new ClickNoteJudgeLogArgs(Data, EvaluateType.Exact, 0));
                 DataModule.RefreshPlayingData(1, 2, EvaluateType.Exact, 0); // Auto Mode 杂率为0
-                ViewObject.CreateEffectObj(NoteData.NoteWidth);
+                ViewObject?.CreateEffectObj(NoteData.NoteWidth);
                 DestroySelf(false);
             }
         }
@@ -81,7 +81,7 @@ namespace CyanStars.Gameplay.MusicGame
                         if (et == EvaluateType.Bad || et == EvaluateType.Miss)
                         {
                             //头判失败直接销毁
-                            ViewObject.CreateEffectObj(NoteData.NoteWidth);
+                            ViewObject?.CreateEffectObj(NoteData.NoteWidth);
                             DestroySelf(false);
                         }
                     }
@@ -91,7 +91,7 @@ namespace CyanStars.Gameplay.MusicGame
 
                     if (!headChecked) return;
 
-                    ViewObject.CreateEffectObj(NoteData.NoteWidth);
+                    ViewObject?.CreateEffectObj(NoteData.NoteWidth);
                     DestroySelf(false);
 
                     float timeLength = CurLogicTime - downTimePoint;

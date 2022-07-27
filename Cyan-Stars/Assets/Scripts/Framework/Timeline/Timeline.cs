@@ -118,5 +118,10 @@ namespace CyanStars.Framework.Timeline
                 OnStop?.Invoke();
             }
         }
+
+        public void SetCurTime(float CurrentTime)
+        {
+            this.CurrentTime = CurrentTime;
+        }
     }
 }
