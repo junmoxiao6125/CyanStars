@@ -197,22 +197,19 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (!dataModule.IsAutoMode)
             {
-                if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
-                {
-                    //使用触屏输入
-                    TouchInputReceiver touch = new TouchInputReceiver(inputMapData);
+#if UNITY_ANDROID || UNITY_IOS
+                //使用触屏输入
+                TouchInputReceiver touch = new TouchInputReceiver(inputMapData);
 
-                    GameObject prefab = sceneRoot.transform.Find("TouchInputReceiveObj").gameObject;
-                    Transform parent = sceneRoot.transform.Find("TouchInputParent");
-                    touch.CreateReceiveObj(prefab,parent);
+                GameObject prefab = sceneRoot.transform.Find("TouchInputReceiveObj").gameObject;
+                Transform parent = sceneRoot.transform.Find("TouchInputParent");
+                touch.CreateReceiveObj(prefab,parent);
 
-                    inputReceiver = touch;
-                }
-                else
-                {
-                    //使用键盘输入
-                    inputReceiver = new KeyboardInputReceiver(inputMapData);
-                }
+                inputReceiver = touch;
+#else
+                //使用键盘输入
+                inputReceiver = new KeyboardInputReceiver(inputMapData);
+#endif
             }
 
 
