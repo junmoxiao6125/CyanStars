@@ -18,6 +18,12 @@
         public const string MusicGameDataRefreshEvent = nameof(MusicGameDataRefreshEvent);
 
         /// <summary>
+        /// 音游请求暂停事件
+        /// 在实际暂停之前，完成必要的计算处理
+        /// </summary>
+        public const string MusicGameRequestPauseEvent = nameof(MusicGameRequestPauseEvent);
+
+        /// <summary>
         /// 音游暂停事件
         /// </summary>
         public const string MusicGamePauseEvent = nameof(MusicGamePauseEvent);

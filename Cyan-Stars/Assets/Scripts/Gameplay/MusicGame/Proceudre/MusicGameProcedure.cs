@@ -47,6 +47,7 @@ namespace CyanStars.Gameplay.MusicGame
         //----流程逻辑相关--------
         private BaseInputReceiver inputReceiver;
         private float lastTime = -float.Epsilon;
+        private bool requestPause = false;
 
 
         public override async void OnEnter()
@@ -56,6 +57,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             //监听事件
             GameRoot.Event.AddListener(EventConst.MusicGameStartEvent, OnMusicGameStart);
+            GameRoot.Event.AddListener(EventConst.MusicGameRequestPauseEvent, OnMusicGameRequestPause);
             GameRoot.Event.AddListener(EventConst.MusicGamePauseEvent, OnMusicGamePause);
             GameRoot.Event.AddListener(EventConst.MusicGameResumeEvent, OnMusicGameResume);
             GameRoot.Event.AddListener(EventConst.MusicGameExitEvent, OnMusicGameExit);
@@ -111,6 +113,7 @@ namespace CyanStars.Gameplay.MusicGame
             lastTime = -float.Epsilon;
 
             GameRoot.Event.RemoveListener(EventConst.MusicGameStartEvent, OnMusicGameStart);
+            GameRoot.Event.RemoveListener(EventConst.MusicGameRequestPauseEvent, OnMusicGameRequestPause);
             GameRoot.Event.RemoveListener(EventConst.MusicGamePauseEvent, OnMusicGamePause);
             GameRoot.Event.RemoveListener(EventConst.MusicGameResumeEvent, OnMusicGameResume);
             GameRoot.Event.RemoveListener(EventConst.MusicGameExitEvent, OnMusicGameExit);
@@ -129,6 +132,14 @@ namespace CyanStars.Gameplay.MusicGame
         {
             CreateTimeline();
             inputReceiver?.StartReceive();
+        }
+
+        /// <summary>
+        /// 请求暂停音游
+        /// </summary>
+        private void OnMusicGameRequestPause(object sender, EventArgs e)
+        {
+            requestPause = true;
         }
 
         /// <summary>
@@ -373,9 +384,11 @@ namespace CyanStars.Gameplay.MusicGame
 
             timeline.OnUpdate(timelineDeltaTime);
 
-            //音游流程中 按下ESC打开暂停
-            if (Input.GetKeyDown(KeyCode.Escape))
+            // 音游流程中请求暂停
+            // 暂时的写法，考虑使用UnityEngine.InputSystem
+            if (requestPause || Input.GetKeyDown(KeyCode.Escape))
             {
+                requestPause = false;
                 GameRoot.UI.OpenUIPanel<MusicGamePausePanel>(null);
             }
         }

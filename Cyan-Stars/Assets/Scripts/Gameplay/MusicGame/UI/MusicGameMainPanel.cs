@@ -39,7 +39,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             BtnPause.onClick.AddListener(() =>
             {
-                GameRoot.UI.OpenUIPanel<MusicGamePausePanel>(null);
+                GameRoot.Event.Dispatch(EventConst.MusicGameRequestPauseEvent, this, EmptyEventArgs.Create());
             });
         }
 
