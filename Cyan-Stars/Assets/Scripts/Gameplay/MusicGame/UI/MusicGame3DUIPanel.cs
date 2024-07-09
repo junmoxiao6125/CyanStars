@@ -17,9 +17,9 @@ namespace CyanStars.Gameplay.MusicGame
     public class MusicGame3DUIPanel : BaseUIPanel
     {
         public TextMeshProUGUI TxtGrade;
-        public TextMeshProUGUI TxtAccuracy;
+        //public TextMeshProUGUI TxtAccuracy;
         public TextMeshProUGUI TxtScoreRatio;
-        public TextMeshProUGUI TxtVisibleScore;
+        //public TextMeshProUGUI TxtVisibleScore;
 
         private MusicGameModule dataModule;
 
@@ -35,11 +35,11 @@ namespace CyanStars.Gameplay.MusicGame
             Color color = TxtGrade.color;
             color.a = 1;
             TxtGrade.color = color;
-            TxtAccuracy.text = $"杂率:{0:F3}s";
-            TxtAccuracy.color = Color.yellow;
+            //TxtAccuracy.text = $"杂率:{0:F3}s";
+            //TxtAccuracy.color = Color.yellow;
             TxtScoreRatio.text = $"{100:F}%";
             TxtScoreRatio.color = Color.yellow;
-            TxtVisibleScore.text = "000000";;
+            //TxtVisibleScore.text = "000000";
 
             GameRoot.Event.AddListener(EventConst.MusicGameDataRefreshEvent, OnMusicGameDataRefresh);
         }
@@ -92,32 +92,32 @@ namespace CyanStars.Gameplay.MusicGame
             StopAllCoroutines();
             StartCoroutine(FadeGradeTMP());
 
-            //刷新杂率
-            float accuracy = 0, sum = 0;
-            if (dataModule.DeviationList.Count > 0)
-            {
-                foreach (var item in dataModule.DeviationList)
-                {
-                    sum += Mathf.Abs(item);
-                }
+            ////刷新杂率
+            //float accuracy = 0, sum = 0;
+            //if (dataModule.DeviationList.Count > 0)
+            //{
+            //    foreach (var item in dataModule.DeviationList)
+            //    {
+            //        sum += Mathf.Abs(item);
+            //    }
 
-                accuracy = sum / dataModule.DeviationList.Count;
-            }
+            //    accuracy = sum / dataModule.DeviationList.Count;
+            //}
 
-            TxtAccuracy.text = $"杂率:{accuracy:F3}s";
+            //TxtAccuracy.text = $"杂率:{accuracy:F3}s";
 
-            if (accuracy < 0.03)
-            {
-                TxtAccuracy.color = Color.yellow;
-            }
-            else if (accuracy < 0.05)
-            {
-                TxtAccuracy.color = Color.blue;
-            }
-            else
-            {
-                TxtAccuracy.color = Color.white;
-            }
+            //if (accuracy < 0.03)
+            //{
+            //    TxtAccuracy.color = Color.yellow;
+            //}
+            //else if (accuracy < 0.05)
+            //{
+            //    TxtAccuracy.color = Color.blue;
+            //}
+            //else
+            //{
+            //    TxtAccuracy.color = Color.white;
+            //}
 
             //刷新得分率
             float scoreRatio = 0;
@@ -146,7 +146,7 @@ namespace CyanStars.Gameplay.MusicGame
             }
 
             //刷新当前分数
-            TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0'); //更新文本
+            //TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0'); //更新文本
         }
 
         private IEnumerator FadeGradeTMP()

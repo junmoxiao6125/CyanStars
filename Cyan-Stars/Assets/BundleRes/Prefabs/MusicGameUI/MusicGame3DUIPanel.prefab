@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Ready?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 32b017538c342964b83132741861ed2a, type: 2}
-  m_sharedMaterial: {fileID: -5454673948775762243, guid: 32b017538c342964b83132741861ed2a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -151,7 +151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6673541318301419569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5395261318044102447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5090593036356733322
 RectTransform:
   m_ObjectHideFlags: 0
@@ -589,6 +589,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TxtGrade: {fileID: 3612869322121431603}
-  TxtAccuracy: {fileID: 4373908580246485952}
   TxtScoreRatio: {fileID: 5211216755963802654}
-  TxtVisibleScore: {fileID: 6410618749659017958}
