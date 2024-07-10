@@ -19,11 +19,13 @@ namespace CyanStars.Gameplay.MusicGame
     {
         public Image ImgProgress;
         public TextMeshProUGUI TxtCombo;
-        public TextMeshProUGUI TxtScore;
+        public TextMeshProUGUI TxtScoreDebug;
         public Image ImgFrame;
         public Button BtnStart;
         public TextMeshProUGUI TxtLrc;
         public Button BtnPause;
+        public TextMeshProUGUI TxtVisibleScore;
+        public TextMeshProUGUI TxtAccuracy;
 
         private MusicGameModule dataModule;
 
@@ -46,13 +48,17 @@ namespace CyanStars.Gameplay.MusicGame
         public override void OnOpen()
         {
             ImgProgress.fillAmount = 0;
-            TxtCombo.text = "0";
-            TxtScore.text = "SCORE(DEBUG):0";
+            TxtCombo.text = "";
+            TxtScoreDebug.text = "SCORE(DEBUG):0";
             BtnStart.gameObject.SetActive(true);
             TxtLrc.text = null;
             Color color = ImgFrame.color;
             color.a = 0;
             ImgFrame.color = color;
+            TxtVisibleScore.text = "000000";
+            TxtVisibleScore.color = Color.yellow;
+            TxtAccuracy.text = $"{0:00.0000}";
+            TxtAccuracy.color = Color.yellow;
 
             GameRoot.Event.AddListener(EventConst.MusicGameDataRefreshEvent, OnMusicGameDataRefresh);
             GameRoot.Timer.UpdateTimer.Add(OnUpdate);
@@ -64,7 +70,7 @@ namespace CyanStars.Gameplay.MusicGame
             GameRoot.Timer.UpdateTimer.Remove(OnUpdate);
         }
 
-        private void OnUpdate(float deltaTime,object userdata)
+        private void OnUpdate(float deltaTime, object userdata)
         {
             if (dataModule.RunningTimeline != null)
             {
@@ -78,7 +84,53 @@ namespace CyanStars.Gameplay.MusicGame
         private void OnMusicGameDataRefresh(object sender, EventArgs args)
         {
             TxtCombo.text = dataModule.Combo < 2 ? string.Empty : dataModule.Combo.ToString();
-            TxtScore.text = "SCORE(DEBUG):" + dataModule.Score;
+            TxtScoreDebug.text = "SCORE(DEBUG):" + dataModule.Score;
+            TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0');
+
+            //刷新分数颜色（原得分率颜色）
+            if (dataModule.GreatNum + dataModule.RightNum + dataModule.BadNum +
+                dataModule.MissNum == 0)
+            {
+                TxtVisibleScore.color = new Color(1f, 0.757f, 0.027f, 0.85f);
+            }
+            else
+            {
+                if (dataModule.MissNum + dataModule.BadNum == 0)
+                {
+                    TxtVisibleScore.color = new Color(0f, 0.482f, 1f, 0.85f);
+                }
+                else
+                {
+                    TxtVisibleScore.color = new Color(0.972f, 0.976f, 0.980f, 0.8f);
+                }
+            }
+
+            //刷新杂率颜色
+            float accuracy = 0, sum = 0;
+            if (dataModule.DeviationList.Count > 0)
+            {
+                foreach (var item in dataModule.DeviationList)
+                {
+                    sum += Mathf.Abs(item);
+                }
+
+                accuracy = sum / dataModule.DeviationList.Count;
+            }
+
+            TxtAccuracy.text = $"{accuracy * 1000:00.0000}";    //将s转为ms表示
+
+            if (accuracy < 0.03)
+            {
+                TxtAccuracy.color = new Color(1f, 0.757f, 0.027f, 0.85f);
+            }
+            else if (accuracy < 0.05)
+            {
+                TxtAccuracy.color = new Color(0f, 0.482f, 1f, 0.85f);
+            }
+            else
+            {
+                TxtAccuracy.color = new Color(0.972f, 0.976f, 0.980f, 0.8f);
+            }
         }
 
 

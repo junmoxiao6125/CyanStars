@@ -17,9 +17,9 @@ namespace CyanStars.Gameplay.MusicGame
     public class MusicGame3DUIPanel : BaseUIPanel
     {
         public TextMeshProUGUI TxtGrade;
-        public TextMeshProUGUI TxtAccuracy;
-        public TextMeshProUGUI TxtScoreRatio;
-        public TextMeshProUGUI TxtVisibleScore;
+        //public TextMeshProUGUI TxtAccuracy;
+        //public TextMeshProUGUI TxtScoreRatio;
+        //public TextMeshProUGUI TxtVisibleScore;
 
         private MusicGameModule dataModule;
 
@@ -31,15 +31,15 @@ namespace CyanStars.Gameplay.MusicGame
 
         public override void OnOpen()
         {
-            TxtGrade.text = "Ready?";
+            TxtGrade.text = "Ready";
             Color color = TxtGrade.color;
             color.a = 1;
             TxtGrade.color = color;
-            TxtAccuracy.text = $"杂率:{0:F3}s";
-            TxtAccuracy.color = Color.yellow;
-            TxtScoreRatio.text = $"{100:F}%";
-            TxtScoreRatio.color = Color.yellow;
-            TxtVisibleScore.text = "000000";;
+            //TxtAccuracy.text = $"杂率:{0:F3}s";
+            //TxtAccuracy.color = Color.yellow;
+            //TxtScoreRatio.text = $"{100:F}%";
+            //TxtScoreRatio.color = Color.yellow;
+            //TxtVisibleScore.text = "000000";
 
             GameRoot.Event.AddListener(EventConst.MusicGameDataRefreshEvent, OnMusicGameDataRefresh);
         }
@@ -68,85 +68,85 @@ namespace CyanStars.Gameplay.MusicGame
                 switch (dataModule.Grade)
                 {
                     case EvaluateType.Miss:
-                        color = Color.white;
+                        color = new Color(0.972f, 0.976f, 0.980f, 0.8f);
                         break;
                     case EvaluateType.Exact:
-                        color = Color.green;
+                        color = new Color(0.157f, 0.655f, 0.271f, 0.9f);
                         break;
                     case EvaluateType.Great:
-                        color = Color.cyan;
+                        color = new Color(0f, 0.482f, 1f, 0.85f);
                         break;
                     case EvaluateType.Bad:
-                        color = Color.red;
+                        color = new Color(0.863f, 0.208f, 0.271f, 0.8f);
                         break;
                     case EvaluateType.Right:
                     case EvaluateType.Out:
-                        color = Color.yellow;
+                        color = new Color(1f, 0.757f, 0.027f, 0.85f);
                         break;
                 }
             }
 
-            color.a = 1;
+
             TxtGrade.color = color;
             TxtGrade.fontSize = 12;
             StopAllCoroutines();
             StartCoroutine(FadeGradeTMP());
 
-            //刷新杂率
-            float accuracy = 0, sum = 0;
-            if (dataModule.DeviationList.Count > 0)
-            {
-                foreach (var item in dataModule.DeviationList)
-                {
-                    sum += Mathf.Abs(item);
-                }
+            ////刷新杂率
+            //float accuracy = 0, sum = 0;
+            //if (dataModule.DeviationList.Count > 0)
+            //{
+            //    foreach (var item in dataModule.DeviationList)
+            //    {
+            //        sum += Mathf.Abs(item);
+            //    }
 
-                accuracy = sum / dataModule.DeviationList.Count;
-            }
+            //    accuracy = sum / dataModule.DeviationList.Count;
+            //}
 
-            TxtAccuracy.text = $"杂率:{accuracy:F3}s";
+            //TxtAccuracy.text = $"杂率:{accuracy:F3}s";
 
-            if (accuracy < 0.03)
-            {
-                TxtAccuracy.color = Color.yellow;
-            }
-            else if (accuracy < 0.05)
-            {
-                TxtAccuracy.color = Color.blue;
-            }
-            else
-            {
-                TxtAccuracy.color = Color.white;
-            }
+            //if (accuracy < 0.03)
+            //{
+            //    TxtAccuracy.color = Color.yellow;
+            //}
+            //else if (accuracy < 0.05)
+            //{
+            //    TxtAccuracy.color = Color.blue;
+            //}
+            //else
+            //{
+            //    TxtAccuracy.color = Color.white;
+            //}
 
-            //刷新得分率
-            float scoreRatio = 0;
-            if (dataModule.MaxScore > 0)
-            {
-                scoreRatio = dataModule.Score / dataModule.MaxScore;
-            }
+            ////刷新得分率
+            //float scoreRatio = 0;
+            //if (dataModule.MaxScore > 0)
+            //{
+            //    scoreRatio = dataModule.Score / dataModule.MaxScore;
+            //}
 
-            TxtScoreRatio.text = $"{(scoreRatio * 100):F}%";
+            //TxtScoreRatio.text = $"{(scoreRatio * 100):F}%";
 
-            if (dataModule.GreatNum + dataModule.RightNum + dataModule.BadNum +
-                dataModule.MissNum == 0)
-            {
-                TxtScoreRatio.color = Color.yellow;
-            }
-            else
-            {
-                if (dataModule.MissNum + dataModule.BadNum == 0)
-                {
-                    TxtScoreRatio.color = Color.cyan;
-                }
-                else
-                {
-                    TxtScoreRatio.color = Color.white;
-                }
-            }
+            //if (dataModule.GreatNum + dataModule.RightNum + dataModule.BadNum +
+            //    dataModule.MissNum == 0)
+            //{
+            //    TxtScoreRatio.color = Color.yellow;
+            //}
+            //else
+            //{
+            //    if (dataModule.MissNum + dataModule.BadNum == 0)
+            //    {
+            //        TxtScoreRatio.color = Color.cyan;
+            //    }
+            //    else
+            //    {
+            //        TxtScoreRatio.color = Color.white;
+            //    }
+            //}
 
             //刷新当前分数
-            TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0'); //更新文本
+            //TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0'); //更新文本
         }
 
         private IEnumerator FadeGradeTMP()
@@ -156,7 +156,7 @@ namespace CyanStars.Gameplay.MusicGame
             Color gradeColor = TxtGrade.color;
             TxtGrade.fontSize = 11;
 
-            float a = 1;
+            float a = TxtGrade.color.a;
             while (a >= 0)
             {
                 a -= Time.deltaTime;
