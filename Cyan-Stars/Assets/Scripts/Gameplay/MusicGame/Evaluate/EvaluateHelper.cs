@@ -37,7 +37,7 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (distance <= c.Bad && distance >= 0)
             {
-                return EvaluateType.Bad;
+                //return EvaluateType.Bad;
             }
 
             if (distance >= c.Right)
