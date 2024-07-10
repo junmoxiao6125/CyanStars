@@ -48,7 +48,7 @@ namespace CyanStars.Gameplay.MusicGame
         public override void OnOpen()
         {
             ImgProgress.fillAmount = 0;
-            TxtCombo.text = "0";
+            TxtCombo.text = "";
             TxtScoreDebug.text = "SCORE(DEBUG):0";
             BtnStart.gameObject.SetActive(true);
             TxtLrc.text = null;
@@ -56,6 +56,7 @@ namespace CyanStars.Gameplay.MusicGame
             color.a = 0;
             ImgFrame.color = color;
             TxtVisibleScore.text = "000000";
+            TxtVisibleScore.color = Color.yellow;
             TxtAccuracy.text = $"{0:00.0000}";
             TxtAccuracy.color = Color.yellow;
 
@@ -69,7 +70,7 @@ namespace CyanStars.Gameplay.MusicGame
             GameRoot.Timer.UpdateTimer.Remove(OnUpdate);
         }
 
-        private void OnUpdate(float deltaTime,object userdata)
+        private void OnUpdate(float deltaTime, object userdata)
         {
             if (dataModule.RunningTimeline != null)
             {
@@ -86,8 +87,25 @@ namespace CyanStars.Gameplay.MusicGame
             TxtScoreDebug.text = "SCORE(DEBUG):" + dataModule.Score;
             TxtVisibleScore.text = ((int)(dataModule.Score / dataModule.FullScore * 100000)).ToString().PadLeft(6, '0');
 
+            //刷新分数颜色（原得分率颜色）
+            if (dataModule.GreatNum + dataModule.RightNum + dataModule.BadNum +
+                dataModule.MissNum == 0)
+            {
+                TxtVisibleScore.color = new Color(1f, 0.757f, 0.027f, 0.85f);
+            }
+            else
+            {
+                if (dataModule.MissNum + dataModule.BadNum == 0)
+                {
+                    TxtVisibleScore.color = new Color(0f, 0.482f, 1f, 0.85f);
+                }
+                else
+                {
+                    TxtVisibleScore.color = new Color(0.972f, 0.976f, 0.980f, 0.8f);
+                }
+            }
 
-            //刷新杂率
+            //刷新杂率颜色
             float accuracy = 0, sum = 0;
             if (dataModule.DeviationList.Count > 0)
             {
@@ -103,15 +121,15 @@ namespace CyanStars.Gameplay.MusicGame
 
             if (accuracy < 0.03)
             {
-                TxtAccuracy.color = Color.yellow;
+                TxtAccuracy.color = new Color(1f, 0.757f, 0.027f, 0.85f);
             }
             else if (accuracy < 0.05)
             {
-                TxtAccuracy.color = Color.blue;
+                TxtAccuracy.color = new Color(0f, 0.482f, 1f, 0.85f);
             }
             else
             {
-                TxtAccuracy.color = Color.white;
+                TxtAccuracy.color = new Color(0.972f, 0.976f, 0.980f, 0.8f);
             }
         }
 
